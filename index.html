@@ -85,6 +85,18 @@
       // the writeup to view the URL pattern for fetch one and fetch all
       function fetchAll() {
         // TODO
+        let endpoint = document.getElementById("endpoint").value;
+        let output = document.getElementById("output");
+        fetch(endpoint,{
+          method: 'GET',
+        })
+        .then(res => res.json())
+        .then(function(data){
+          output.innerText = JSON.stringify(data);
+        })
+        .catch(function(error) {
+          output.innerText = error;
+        })
       }
 
       // This function should fetch one entry from the given endpoint.
@@ -93,6 +105,27 @@
       // the writeup to view the URL pattern for fetch one and fetch all
       function fetchOne() {
         // TODO
+        let baseEnd = document.getElementById("endpoint").value;
+        let endID = window.prompt("Enter record id");
+        let endpoint = baseEnd + '/' + endID;
+        fetch(endpoint, {
+          method: 'GET',
+        })
+        .then(function(res){
+          if(res.status !== 200){
+            throw res.statusText + ":" + " " + res.status;
+          }
+          else{
+            return res.json()
+          }
+        })
+        .then(function(data){
+          output.innerText = JSON.stringify(data);
+        })
+        .catch(function(error) {
+          output.innerText = error;
+        })
+
       }
 
       // This function should use fetch to create one entry in the given endpoint.
@@ -101,6 +134,7 @@
       // the writeup to view the URL pattern for create and update
       function createRecord() {
         // TODO
+        
       }
 
       // This function should use fetch to update one existing entry in the given endpoint.
